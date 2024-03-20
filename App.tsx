@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { AuthProvider } from "./context/AuthContext";
+import HomeAuthNavigationStack from "./navigator/HomeAuthStackNavigator";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
+import { Provider as ProviderX } from "react-native-paper";
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Provider store={store}>
+        <ProviderX>
+          <AuthProvider userLoggedIn={false} session={null}>
+            <HomeAuthNavigationStack />
+            <StatusBar />
+          </AuthProvider>
+        </ProviderX>
+      </Provider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
